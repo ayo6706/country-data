@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 import config from "config";
 
+import { log } from "./log";
+
 import { Services } from "../services/services";
 
 const apiPath = "/api";
@@ -33,9 +35,8 @@ export default class Http {
             res.send("backend api service");
         });
 
-
         if (NODE_ENV !== "test") {
-            app.listen(port, () => { console.info("starting express server"); });
+            app.listen(port, () => { log.info("starting express server"); });
         }
         return app;
     }
