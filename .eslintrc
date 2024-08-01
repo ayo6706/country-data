@@ -1,0 +1,22 @@
+{
+  "root": true,
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/quotes": ["warn", "double"],
+    "@typescript-eslint/indent": ["warn", 4, { "ignoreComments": true }],
+    "class-methods-use-this": ["off"],
+    "@typescript-eslint/no-shadow":  ["warn", { "allow": ["err"] }],
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^(next|_)" }],
+    "@typescript-eslint/return-await": ["off"],
+    "no-useless-catch": ["off"],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-underscore-dangle": ["off"]
+  },
+  "ignorePatterns": ["createadmin.ts"]
+}

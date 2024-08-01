@@ -22,12 +22,11 @@ function initLoggers() {
     HttpLogger.useLogger(createLogger(HTTPLoggerID));
 }
 
-
 function main(): void {
     initLoggers();
 
     const services: Services = {
-        
+
     };
 
     const http = new Http(services);

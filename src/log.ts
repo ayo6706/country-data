@@ -1,11 +1,11 @@
 /* eslint-disable import/no-mutable-exports */
 import winston, { format } from "winston";
 import config from "config";
+
 const {
     combine, timestamp, label, json,
 } = format;
 const container = new winston.Container();
-const MongoDBLogTTL = 12441600;
 const ProductionEnvironment = "production";
 const DevelopmentEnvironment = "development";
 
