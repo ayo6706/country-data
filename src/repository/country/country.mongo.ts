@@ -44,4 +44,14 @@ export default class CountryRepositoryMongo implements CountryRepository {
       throw new DatabaseError(error);
     }
   }
+
+  async findCountryById(id: string): Promise<Country> {
+    try{
+    const result = await CountryModel.findById(id).populate('borders');
+      return <Country>result
+    }catch(error: any) {
+      log.error(error);
+      throw new DatabaseError(error);    
+    }
+  }
 }
