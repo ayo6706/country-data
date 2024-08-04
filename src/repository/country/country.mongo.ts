@@ -26,4 +26,22 @@ export default class CountryRepositoryMongo implements CountryRepository {
       throw new DatabaseError(error);
     }
   }
+
+  async findCountries(
+    query: CountryQuery,
+    page: number,
+    limit: number
+  ): Promise<Country[]> {
+    try {
+      const skip = (page - 1) * limit;
+      const countries = await CountryModel.find(query)
+        .limit(limit)
+        .skip(skip)
+        .exec();
+      return countries;
+    } catch (error: any) {
+      log.error(error);
+      throw new DatabaseError(error);
+    }
+  }
 }
