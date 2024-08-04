@@ -46,12 +46,66 @@ export default class CountryRepositoryMongo implements CountryRepository {
   }
 
   async findCountryById(id: string): Promise<Country> {
-    try{
-    const result = await CountryModel.findById(id).populate('borders');
+    try {
+      const result = await CountryModel.findById(id).populate('borders');
       return <Country>result
-    }catch(error: any) {
+    } catch (error: any) {
       log.error(error);
-      throw new DatabaseError(error);    
+      throw new DatabaseError(error);
+    }
+  }
+
+  async getRegions(): Promise<any> {
+    try {
+      return await CountryModel.aggregate([
+        {
+          $group: {
+            _id: '$region',
+            countries: { $push: { name: '$name', population: '$population' } },
+            totalPopulation: { $sum: '$population' }
+          }
+        },
+        {
+          $project: {
+            region: '$_id',
+            countries: 1,
+            totalPopulation: 1,
+            _id: 0
+          }
+        }
+      ])
+
+    } catch (error: any) {
+      log.error(error);
+      throw new DatabaseError(error);
+    }
+  }
+
+  async getLanguages(): Promise<any> {
+    try {
+      return await CountryModel.aggregate([
+        { $unwind: '$languages' },
+        {
+          $group: {
+            _id: '$languages',
+            countries: { $push: { name: '$name', population: '$population' } },
+            totalSpeakers: { $sum: '$population' }
+          }
+        },
+        {
+          $project: {
+            language: '$_id',
+            countries: 1,
+            totalSpeakers: 1,
+            _id: 0
+          }
+        },
+        { $sort: { totalSpeakers: -1 } }
+      ]);
+
+    } catch (error: any) {
+      log.error(error)
+      throw new DatabaseError(error)
     }
   }
 }
