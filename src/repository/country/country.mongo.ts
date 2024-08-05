@@ -108,4 +108,14 @@ export default class CountryRepositoryMongo implements CountryRepository {
       throw new DatabaseError(error)
     }
   }
+
+  async getLargestCountry(): Promise<any> {
+    try {
+      const largestCountry = await CountryModel.findOne().sort('-area').select('name area');
+      return largestCountry;
+    } catch (error: any) {
+      log.error(error)
+      throw new DatabaseError(error)
+    }
+  }
 }

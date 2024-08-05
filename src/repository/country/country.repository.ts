@@ -12,4 +12,5 @@ export interface CountryRepository{
         updates: { filter: FilterQuery<Country>; update: T }[],
         upsert?: boolean
     ): Promise<void>
+    getLargestCountry(): Promise<any>
 }
