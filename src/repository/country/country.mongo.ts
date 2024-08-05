@@ -128,4 +128,24 @@ export default class CountryRepositoryMongo implements CountryRepository {
       throw new DatabaseError(error)
     }
   }
+
+  async getMostSpokenLanguage(): Promise<any> {
+    try {
+      const mostSpokenLanguage = await CountryModel.aggregate([
+        { $unwind: '$languages' },
+        {
+          $group: {
+            _id: '$languages',
+            totalSpeakers: { $sum: '$population' }
+          }
+        },
+        { $sort: { totalSpeakers: -1 } },
+        { $limit: 1 }
+      ]);
+      return mostSpokenLanguage
+    } catch (error: any) {
+      log.error(error)
+      throw new DatabaseError(error)
+    }
+  }
 }

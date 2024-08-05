@@ -14,4 +14,5 @@ export interface CountryRepository{
     ): Promise<void>
     getLargestCountry(): Promise<any>
     getSmallestCountry(): Promise<any>
+    getMostSpokenLanguage(): Promise<any>
 }
