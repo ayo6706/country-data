@@ -118,4 +118,14 @@ export default class CountryRepositoryMongo implements CountryRepository {
       throw new DatabaseError(error)
     }
   }
+
+  async getSmallestCountry(): Promise<any> {
+    try {
+      const smallestCountry = await CountryModel.findOne().sort('population').select('name population');
+      return smallestCountry;
+    } catch (error: any) {
+      log.error(error)
+      throw new DatabaseError(error)
+    }
+  }
 }

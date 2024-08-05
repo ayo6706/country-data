@@ -13,4 +13,5 @@ export interface CountryRepository{
         upsert?: boolean
     ): Promise<void>
     getLargestCountry(): Promise<any>
+    getSmallestCountry(): Promise<any>
 }
