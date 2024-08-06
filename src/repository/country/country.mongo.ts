@@ -118,20 +118,20 @@ export default class CountryRepositoryMongo implements CountryRepository {
     }
   }
 
-  async getLargestCountry(): Promise<any> {
+  async getLargestCountry(): Promise<Partial<Country>> {
     try {
       const largestCountry = await CountryModel.findOne().sort('-area').select('name area');
-      return largestCountry;
+      return <Country>largestCountry;
     } catch (error: any) {
       log.error(error)
       throw new DatabaseError(error)
     }
   }
 
-  async getSmallestCountry(): Promise<any> {
+  async getSmallestCountry(): Promise<Partial<Country>>{
     try {
       const smallestCountry = await CountryModel.findOne().sort('population').select('name population');
-      return smallestCountry;
+      return <Country>smallestCountry;
     } catch (error: any) {
       log.error(error)
       throw new DatabaseError(error)

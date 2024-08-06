@@ -13,8 +13,8 @@ export default interface CountryDto {
 }
 
 export interface CountriesDto {
-  countries: CountryDto[],
-  totalPages: number,
+  countries: CountryDto[];
+  totalPages: number;
   currentPage: number
 }
 
@@ -30,8 +30,14 @@ export interface RegionDto {
 }
 
 export interface LanguageDto {
-  countries: Partial<CountryDto>[],
-  totalSpeakers: number,
+  countries: Partial<CountryDto>[];
+  totalSpeakers: number;
   language: string
 }
 
+export interface StatisticsDto {
+  totalCountries: number;
+  largestCountry: Partial<CountryDto>;
+  smallestCountry: Partial<CountryDto>;
+  mostSpokenLanguage: Partial<LanguageDto>
+}

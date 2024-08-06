@@ -1,5 +1,5 @@
 import { FilterQuery } from "mongoose";
-import Country, { CountryQuery, Region } from "./models";
+import Country, { CountryQuery, Language, Region } from "./models";
 
 export interface CountryRepository{
     findCountries(
@@ -14,8 +14,8 @@ export interface CountryRepository{
     ): Promise<void>
     getTotalCountries(query?: CountryQuery): Promise<number>
     getRegions(): Promise<Region[]>
-    getLanguages(): Promise<any>
-    getLargestCountry(): Promise<any>
-    getSmallestCountry(): Promise<any>
+    getLanguages(): Promise<Language[]>
+    getLargestCountry():Promise<Partial<Country>>
+    getSmallestCountry(): Promise<Partial<Country>>
     getMostSpokenLanguage(): Promise<any>
 }
