@@ -1,6 +1,6 @@
 import { FilterQuery } from "mongoose";
 import CountryModel from "./model.mongo";
-import Country, { CountryQuery } from "./models";
+import Country, { CountryQuery, Region } from "./models";
 import { CountryRepository } from "./country.repository";
 import { log } from "../log";
 import DatabaseError from "../../errors/database";
@@ -64,7 +64,7 @@ export default class CountryRepositoryMongo implements CountryRepository {
     }
   }
 
-  async getRegions(): Promise<any> {
+  async getRegions(): Promise<Region[]> {
     try {
       return await CountryModel.aggregate([
         {

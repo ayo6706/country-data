@@ -17,5 +17,11 @@ export default interface Country {
   region: string;
   subregion: string;
   languages: string[];
-  borders: string[];
+  borders: string[] | Country[];
+}
+
+export interface Region {
+  countries: Partial<Country>[];
+  totalPopulation: number;
+  region: string;
 }

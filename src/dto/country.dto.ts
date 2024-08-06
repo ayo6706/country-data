@@ -22,3 +22,9 @@ export interface UpdateFilter {
   filter: { _id: string };
   update: { borders: string[] };
 }
+
+export interface RegionDto {
+  countries: Partial<CountryDto>[];
+  totalPopulation: number;
+  region: string;
+}
