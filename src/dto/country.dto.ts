@@ -28,3 +28,10 @@ export interface RegionDto {
   totalPopulation: number;
   region: string;
 }
+
+export interface LanguageDto {
+  countries: Partial<CountryDto>[],
+  totalSpeakers: number,
+  language: string
+}
+

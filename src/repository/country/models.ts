@@ -25,3 +25,9 @@ export interface Region {
   totalPopulation: number;
   region: string;
 }
+
+export interface Language {
+  countries: Partial<Country>[],
+  totalSpeakers: number,
+  language: string
+}
