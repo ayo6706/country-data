@@ -12,6 +12,7 @@ export interface CountryRepository{
         updates: { filter: FilterQuery<Country>; update: T }[],
         upsert?: boolean
     ): Promise<void>
+    getTotalCountries(query?: CountryQuery): Promise<number>
     getRegions(): Promise<any>
     getLanguages(): Promise<any>
     getLargestCountry(): Promise<any>
