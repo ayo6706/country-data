@@ -1,0 +1,6 @@
+{
+    "NODE_ENV": "local-dev",
+    "PORT": "3000",
+    "API_VERSION": "v1",
+    "DBUri": "mongodb://127.0.0.1:27017/shortlet"
+}
