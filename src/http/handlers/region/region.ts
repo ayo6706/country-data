@@ -22,6 +22,16 @@ export default class RegionHandler implements Handler {
         return routes(this);
     }
 
+/**
+ * @swagger
+ * /regions:
+ *   get:
+ *     summary: Retrieve a list of regions
+ *     description: Retrieve a list of regions with various countries
+ *     responses:
+ *       200:
+ *         description: regions gotten successfully
+ */
     async getAllRegions(req: Request, res: Response, next: NextFunction) {
         try {
             const result = await this.service.getAllRegions();

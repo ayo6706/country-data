@@ -22,6 +22,16 @@ export default class StatisticsHandler implements Handler {
         return routes(this);
     }
 
+/**
+ * @swagger
+ * /statistics:
+ *   get:
+ *     summary: Retrieve statistics
+ *     description: Retrieve statistics 
+ *     responses:
+ *       200:
+ *         description: statistics gotten successfully
+ */
     async getStatistics(req: Request, res: Response, next: NextFunction) {
         try {
             const result = await this.service.getStatistics();

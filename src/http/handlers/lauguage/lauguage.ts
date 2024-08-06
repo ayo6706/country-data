@@ -22,6 +22,16 @@ export default class LanguageHandler implements Handler {
         return routes(this);
     }
 
+/**
+ * @swagger
+ * /languages:
+ *   get:
+ *     summary: Retrieve a list of languages and their details
+ *     description: Retrieve a list of languages from various countries
+ *     responses:
+ *       200:
+ *         description: languages gotten successfully
+ */
     async getAllLanguages(req: Request, res: Response, next: NextFunction) {
         try {
             const result = await this.service.getLanguages();
