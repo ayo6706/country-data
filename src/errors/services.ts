@@ -9,3 +9,6 @@ export class ServiceError extends Error {
         this.name = "ServiceError";
     }
 }
+
+export const ErrCountryDoesNotExist = new ServiceError("country does not exist");
+
