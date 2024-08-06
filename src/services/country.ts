@@ -42,4 +42,16 @@ export default class CountryService {
       return failedPromise(error);
     }
   }
+
+  async getCountryCountryDetails(id: string): Promise<CountryDto> {
+    try {
+      const country = await this.repo.findCountryById(id);
+      if (!country) {
+        return failedPromise(errors.ErrCountryDoesNotExist)
+      }
+      return CountryMapper.toCountryDetailsDto(country)
+    } catch (error: any) {
+      return failedPromise(error)
+    }
+  }
 }
