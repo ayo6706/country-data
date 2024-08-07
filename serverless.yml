@@ -1,0 +1,23 @@
+service: countries-api
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+
+functions:
+  app:
+    handler: build/lambda.handler
+    events:
+      - http:
+          path: /{proxy+}
+          method: any
+          cors: true
+
+custom:
+  cors:
+    origin: '*'
+    headers:
+      - Content-Type
+      - Authorization
+    allowCredentials: false
