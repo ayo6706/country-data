@@ -1,10 +1,10 @@
 import { FilterQuery } from "mongoose";
 import Country, { CountryQuery, Language, Region } from "./models";
 
-export interface CountryRepository{
+export interface CountryRepository {
     findCountries(
-        query?: CountryQuery, 
-        page?: number, 
+        query?: CountryQuery,
+        page?: number,
         limit?: number
     ): Promise<Country[]>
     findCountryById(id: string): Promise<Country>

@@ -9,7 +9,7 @@ const options = {
             title: "Countries API",
             version: "1.0.0",
         },
-        servers: [{ url: "/dev/api" }],
+        servers: [{ url: "/dev/api" }, { url: "/api" }],
     },
     apis: [
         "./src/dto/**/*.ts", "./src/http/handlers/**/*.ts",

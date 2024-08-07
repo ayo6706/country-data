@@ -1,4 +1,3 @@
-
 import { Response as Res } from "express";
 
 export const SUCCESS_RESPONSE = {

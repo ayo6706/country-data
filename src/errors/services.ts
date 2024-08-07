@@ -11,4 +11,3 @@ export class ServiceError extends Error {
 }
 
 export const ErrCountryDoesNotExist = new ServiceError("country does not exist");
-

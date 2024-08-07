@@ -1,9 +1,12 @@
-import { Request, Response, NextFunction, Router } from "express";
+import {
+    Request, Response, NextFunction, Router,
+} from "express";
 import routes from "./routes";
 import { Handler } from "../handler";
 import { ok } from "../../response/response";
 import LanguageService from "../../../services/language";
-const basePath = "languages"
+
+const basePath = "languages";
 
 export default class LanguageHandler implements Handler {
     private service: LanguageService;

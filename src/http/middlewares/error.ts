@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { ServiceError } from "../../errors/services";
-import { HttpError } from "../../errors/http";
+import HttpError from "../../errors/http";
 import DatabaseError from "../../errors/database";
 import { ERROR_RESPONSE, fail } from "../response/response";
 import { log } from "../../log";
@@ -14,10 +14,10 @@ function errorToStatusCode(err: Error): number {
 }
 
 export default function errorMiddleware(
-    error: Error, 
-    req: Request, 
-    res: Response, 
-    next: NextFunction
+    error: Error,
+    req: Request,
+    res: Response,
+    next: NextFunction,
 ) {
     let status: number = 500;
     let message = error.message || "Something went wrong";

@@ -1,5 +1,5 @@
 import Country from "../repository/country/models";
-import CountryDto, { CountriesDto, LanguageDto, StatisticsDto } from "./country.dto";
+import CountryDto, { CountriesDto, StatisticsDto } from "./country.dto";
 
 export default class CountryMapper {
     static toCountryDto(country: Country): CountryDto {
@@ -13,26 +13,30 @@ export default class CountryMapper {
             region: country.region,
             subregion: country.subregion,
             languages: country.languages,
-            borders: country.borders as string[]
-        }
+            borders: country.borders as string[],
+        };
     }
 
     static toCountriesDto(
         countries: Country[],
         totalPages: number,
-        currentPage: number
+        currentPage: number,
     ): CountriesDto {
-        const countriesDto = countries.map(country => CountryMapper.toCountryDto(country));
+        const countriesDto = countries.map((country) => CountryMapper.toCountryDto(country));
         return {
             countries: countriesDto,
             totalPages,
-            currentPage
+            currentPage,
         };
     }
 
     static toCountryDetailsDto(country: Country): CountryDto {
-        const borders = country.borders.map(border => CountryMapper.toCountryDto(border as Country))
-        return{
+        const borders = country.borders.map(
+            (border) => CountryMapper.toCountryDto(
+                border as Country,
+            ),
+        );
+        return {
             id: country.id,
             name: country.name,
             population: country.population,
@@ -42,38 +46,38 @@ export default class CountryMapper {
             region: country.region,
             subregion: country.subregion,
             languages: country.languages,
-            borders: borders as CountryDto[]
-        }
+            borders: borders as CountryDto[],
+        };
     }
 
     static toStatisticsDto(
-        totalCountries: number, 
-        largestCountry: Partial<Country>, 
-        smallestCountry: Partial<Country>, 
-        mostSpokenLanguage: any
+        totalCountries: number,
+        largestCountry: Partial<Country>,
+        smallestCountry: Partial<Country>,
+        mostSpokenLanguage: any,
     ): StatisticsDto {
         const statistics = {
             totalCountries,
             largestCountry: {
-              name: largestCountry?.name,
-              area: largestCountry?.area,
-              population: largestCountry?.population,
-              region: largestCountry?.region,
-              capital: largestCountry?.capital
+                name: largestCountry?.name,
+                area: largestCountry?.area,
+                population: largestCountry?.population,
+                region: largestCountry?.region,
+                capital: largestCountry?.capital,
             },
             smallestCountry: {
-              name: smallestCountry?.name,
-              area: smallestCountry?.area,
-              population: smallestCountry?.population,
-              region: smallestCountry?.region,
-              capital: smallestCountry?.capital
+                name: smallestCountry?.name,
+                area: smallestCountry?.area,
+                population: smallestCountry?.population,
+                region: smallestCountry?.region,
+                capital: smallestCountry?.capital,
             },
             mostSpokenLanguage: {
-              //TODO: change to id
-              language: mostSpokenLanguage[0]?._id,
-              totalSpeakers: mostSpokenLanguage[0]?.totalSpeakers
-            }
-          }
-          return statistics;
+              // TODO: change to id
+                language: mostSpokenLanguage[0]?._id,
+                totalSpeakers: mostSpokenLanguage[0]?.totalSpeakers,
+            },
+        };
+        return statistics;
     }
 }

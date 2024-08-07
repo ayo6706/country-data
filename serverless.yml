@@ -7,7 +7,8 @@ provider:
 
 functions:
   app:
-    handler: build/lambda.handler
+    handler: build/lambda.default
+    timeout: 30 
     events:
       - http:
           path: /{proxy+}

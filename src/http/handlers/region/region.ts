@@ -1,9 +1,12 @@
-import { Request, Response, NextFunction, Router } from "express";
+import {
+    Request, Response, NextFunction, Router,
+} from "express";
 import routes from "./routes";
 import { Handler } from "../handler";
 import { ok } from "../../response/response";
 import RegionService from "../../../services/region";
-const basePath = "regions"
+
+const basePath = "regions";
 
 export default class RegionHandler implements Handler {
     private service: RegionService;
