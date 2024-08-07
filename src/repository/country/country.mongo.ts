@@ -27,7 +27,7 @@ export default class CountryRepositoryMongo implements CountryRepository {
     }
   }
 
-  async getTotalCountries(query: CountryQuery): Promise<number>{
+  async getTotalCountries(query?: CountryQuery): Promise<number>{
     try{
       const count = await CountryModel.countDocuments(query);
       return count

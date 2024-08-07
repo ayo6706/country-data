@@ -1,4 +1,5 @@
 import config from "config";
+import cron from 'node-cron';
 import Http from "./http/http";
 import { Services } from "./services/services";
 import RepositoryLogger, { log } from "./repository/log";
@@ -11,6 +12,7 @@ import mongoose from "mongoose";
 import RegionService from "./services/region";
 import LanguageService from "./services/language";
 import StatisticsService from "./services/statistics";
+import initializeData, { CountryUpdateToDB } from "./jobs/countryupdate";
 
 const RepositoryLoggerID = "DB";
 const ServiceLoggerID = "SRV";
@@ -59,6 +61,13 @@ export function createServices(): Services {
 }
 
 export function createApp(): Http {
+    // Schedule task to run at midnight every day
+    cron.schedule('0 0 * * *', async () => {
+        await CountryUpdateToDB();
+        console.log('Scheduled database update executed');
+    });
+
+    initializeData();
     const services = createServices();
     return new Http(services);
 }

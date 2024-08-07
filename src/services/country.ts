@@ -10,6 +10,60 @@ export default class CountryService {
     private readonly repo: CountryRepository
   ) { }
 
+  async fetchAndStoreCountries(): Promise<void> {
+    try {
+      const countriesData = await fetchCountriesData();
+      const countryUpserts = countriesData.map((countryData: any) => ({
+        filter: { alpha3Code: countryData.cca3 },
+        update: {
+          name: countryData.name.common,
+          capital: countryData.capital ? countryData.capital[0] : 'N/A',
+          population: countryData.population,
+          area: countryData.area,
+          region: countryData.region,
+          subregion: countryData.subregion,
+          languages: countryData.languages ? Object.values(countryData.languages) : [],
+          alpha3Code: countryData.cca3,
+        }
+      }));
+
+      await this.repo.createAndUpdateCountries(countryUpserts, true);
+
+      const borderUpdates = await this.prepareBorderUpdates(countriesData);
+      await this.repo.createAndUpdateCountries(borderUpdates);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  private async prepareBorderUpdates(
+    countriesData: any[]
+  ): Promise<UpdateFilter[]> {
+    const codeToId = new Map<string, string>();
+    const updates: UpdateFilter[] = [];
+
+    // get all countries from the database to map codes to IDs
+    const allCountries = await this.repo.findCountries();
+    allCountries.forEach(country => codeToId.set(country.alpha3Code, country.id!));
+
+    // Prepare updates
+    for (const countryData of countriesData) {
+      if (countryData.borders && countryData.borders.length > 0) {
+        const countryId = codeToId.get(countryData.cca3);
+        if (countryId) {
+          const borderIds = countryData.borders
+            .map((borderCode: string) => codeToId.get(borderCode))
+            .filter(Boolean);
+          updates.push({
+            filter: { _id: countryId },
+            update: { borders: borderIds as string[] }
+          });
+        }
+      }
+    }
+    return updates;
+  }
+
   async getCountries(
     region?: string,
     minPopulation?: number,
